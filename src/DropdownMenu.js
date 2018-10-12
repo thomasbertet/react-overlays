@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 import { Popper } from 'react-popper';
 import DropdownContext from './DropdownContext';
@@ -150,7 +151,7 @@ class DropdownMenu extends React.Component {
       // with react-poppers <Reference>
       if (toggleNode) popperConfig.referenceElement = toggleNode;
 
-      menu = (
+      menu = ReactDOM.createPortal(
         <Popper
           {...popperConfig}
           innerRef={menuRef}
@@ -170,7 +171,8 @@ class DropdownMenu extends React.Component {
               props: { ...menuProps, ref, style },
             });
           }}
-        </Popper>
+        </Popper>,
+        document.querySelector('body'),
       );
     }
 
